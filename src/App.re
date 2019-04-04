@@ -14,10 +14,8 @@ let make = _children => {
   initialState: () => {loading: false},
   render: self =>
     <div className="app">
-      (
-        self.state.loading ?
-          <div className="login-size"> <div className="loader" /> </div> :
-          <JobApp />
-      )
+      {self.state.loading
+         ? <div className="login-size"> <div className="loader" /> </div>
+         : <JobApp />}
     </div>,
 };

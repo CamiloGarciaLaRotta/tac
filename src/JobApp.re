@@ -2,6 +2,25 @@ open Utilities;
 
 type resume = Services.resume;
 
+let getUrl: unit => unit = [%bs.raw
+  {|
+function () {
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      if( request.url !== "" ) {
+       console.log("GOT: "+request.url);
+      }
+    }
+  );
+
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, {"message": "url"});
+  });
+}
+|}
+];
+
 type state = {
   url: string,
   company: string,
@@ -83,6 +102,7 @@ let make = _children => {
     loading: false,
     errorCause: "",
   },
+  didMount: _self => getUrl(),
   render: self => {
     /** Event handlers which function as sort of dispatchers */
     let changeUrl = x => UpdateUrl(x) |> self.send;
