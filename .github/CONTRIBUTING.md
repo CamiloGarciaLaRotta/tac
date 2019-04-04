@@ -1,12 +1,12 @@
-# How to contribute to the Jobhub Chrome extension
+# How to contribute to the Tack Chrome extension
 
-Thanks for your interest on contributing to Jobhub!  
+Thanks for your interest on contributing to Tack!  
 Here are a few general guidelines on contributing and reporting bugs that we ask you to take a look first.  
 Notice that all of your interactions in the project are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Reporting Issues
 
-If your issue wasn't already reported or fixed in our [issue board](https://github.com/scrum-gang/jobhub-chrome/issues), you can submit it using [this template](ISSUE_TEMPLATE.md).
+If your issue wasn't already reported or fixed in our [issue board](https://github.com/camilogarcialarotta/tack/issues), you can submit it using [this template](ISSUE_TEMPLATE.md).
 
 
 **If you find a security bug, do not report it through GitHub.  
@@ -16,7 +16,7 @@ instead.**
 
 ## Sending Pull Requests
 
-If your enhancement or bug fix wasn't already proposed or fixed in our [issue board](https://github.com/scrum-gang/jobhub-chrome/issues), you can submit it using [this template](PULL_REQUEST_TEMPLATE.md).
+If your enhancement or bug fix wasn't already proposed or fixed in our [issue board](https://github.com/camilogarcialarotta/tack/issues), you can submit it using [this template](PULL_REQUEST_TEMPLATE.md).
 
 The basic things every PR must have are the following:
 - an issue atttached to it so that the team can discuss before a solution is implemented
@@ -25,8 +25,8 @@ The basic things every PR must have are the following:
 ## How to setup
 1. Clone the repo and install the dependencies
     ```bash
-    git clone https://github.com/scrum-gang/jobhub-chrome.git
-    cd jobhub-chrome
+    git clone https://github.com/camilogarcialarotta/tack.git
+    cd tack
     npm install
     ```
 

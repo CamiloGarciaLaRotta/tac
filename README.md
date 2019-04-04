@@ -1,8 +1,8 @@
-# JobHub Google Chrome Extension
+# Tack Google Chrome Extension
 :pushpin: Keep track of job applications ad-hoc
 
-[![Build Status](https://travis-ci.org/scrum-gang/jobhub-chrome.svg?branch=master)](https://travis-ci.org/scrum-gang/jobhub-chrome) 
-<!--- [![Coverage Status](https://coveralls.io/repos/github/scrum-gang/jobhub-chrome/badge.svg)](https://coveralls.io/github/scrum-gang/jobhub-chrome)--->
+[![Build Status](https://travis-ci.org/camilogarcialarotta/tack.svg?branch=master)](https://travis-ci.org/camilogarcialarotta/tack) 
+- [![Coverage Status](https://coveralls.io/repos/github/camilogarcialarotta/tack/badge.svg)](https://coveralls.io/github/camilogarcialarotta/tack)-
 
 | Login Popup  | Job Posting Form |
 | ------------- | ------------- |
@@ -12,8 +12,8 @@
 ## How to setup the project
 Please check our [contributors guide](.github/CONTRIBUTING.md).
 
-## Why use the JobHub Extension
-The Chrome extension is meant to be an ad-hoc access to the JobHub services. When the users are on a job application website, they don't need to stop browsing the post in order to open the JobHub website on a separate tab. Instead, they can start tracking the given application via the popup submit directly on the job posting website.
+## Why use the Tack Extension
+The Chrome extension is meant to be an ad-hoc access to the Tack services. When the users are on a job application website, they don't need to stop browsing the post in order to open the Tack website on a separate tab. Instead, they can start tracking the given application via the popup submit directly on the job posting website.
 
 ## Folder Structure
 ```bash

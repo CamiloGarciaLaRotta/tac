@@ -196,14 +196,6 @@ select:active {
   100% { transform: rotate(360deg); }
 }
 
-.login-size {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  height: 239px;
-}
-
 .jobapp-size {
   display: flex;
   align-items: center;

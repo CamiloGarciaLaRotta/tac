@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "JobHub Chrome Extension",
-  "description": "This extension allows the user to add applications to their list of job postings",
+  "name": "Tack Chrome Extension",
+  "description": "Keep track of applications ad-hoc",
   "version": "1.0",
   "browser_action": {
     "default_icon": "icon.png",

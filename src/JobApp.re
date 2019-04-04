@@ -12,8 +12,6 @@ type state = {
   resumes: array(resume),
   resumeValue: string,
   status: string,
-  id: string,
-  jwt: string,
   error: bool,
   success: bool,
   loading: bool,
@@ -51,22 +49,7 @@ let reducer = (action, state) =>
   | Submit =>
     ReasonReact.UpdateWithSideEffects(
       {...state, loading: true, error: false},
-      (
-        self =>
-          Services.submitApplication(
-            ~company=state.company,
-            ~position=state.position,
-            ~url=state.url,
-            ~resume=state.resumeValue,
-            ~date_posted=state.postedDate,
-            ~deadline=state.deadline,
-            ~status=state.status,
-            ~id=state.id,
-            ~jwt=state.jwt,
-            ~callback=() => self.send(SuccesfulSubmit),
-            ~failure=why => self.send(FailedSubmit(why)),
-          )
-      ),
+      (_self => ()),
     )
   | SuccesfulSubmit =>
     ReasonReact.Update({
@@ -87,7 +70,7 @@ let reducer = (action, state) =>
 
 let component = ReasonReact.reducerComponent("JobApp");
 
-let make = (~signOutHandler, ~id, ~jwt, _children) => {
+let make = _children => {
   ...component,
   reducer,
   initialState: () => {
@@ -100,26 +83,10 @@ let make = (~signOutHandler, ~id, ~jwt, _children) => {
     resumes: [||],
     resumeValue: "",
     status: "",
-    id,
-    jwt,
     error: false,
     success: false,
     loading: false,
     errorCause: "",
-  },
-  didMount: self => {
-    let setCompanyNames = x => UpdateCompanyNames(x) |> self.send;
-    let setResumes = x => UpdateResumes(x) |> self.send;
-    ReasonReact.SideEffects(
-      _self => {
-        /** Fetch all data required for the form */
-        Services.loadCompanyNames(setCompanyNames);
-        Services.getResumeRevisions(
-          ~id, ~jwt, ~callback=setResumes, ~failure=_ =>
-          Js.log("Failed to load resumes")
-        );
-      },
-    );
   },
   render: self => {
     /** Event handlers which function as sort of dispatchers */
@@ -146,39 +113,25 @@ let make = (~signOutHandler, ~id, ~jwt, _children) => {
           )>
           <p className="error-message"> (errorMessage |> str) </p>
           <p className="success-message"> (successMessage |> str) </p>
-          (
-            switch (self.state.companies) {
-            | [||] => "Loading" |> str
-            | _ =>
-              <ScrapingInput
-                script=ScrapingFunctions.scriptHtmlBody
-                typeValue="text"
-                validationFn=ScrapingFunctions.validateNonNull
-                processFn=(
-                  x =>
-                    ScrapingFunctions.extractCompaniesProcess(
-                      self.state.companies,
-                      x,
-                    )
-                )
-                reducerFn=changeCompany
-                name="company"
-                placeholder="company"
-                value=self.state.company
-                required=(Js.Boolean.to_js_boolean(true))
-              />
-            }
-          )
-          <ScrapingInput
-            script=ScrapingFunctions.scriptPosition
-            typeValue="text"
-            validationFn=ScrapingFunctions.validateNonNull
-            processFn=ScrapingFunctions.toStringProcess
-            reducerFn=changePosition
+          <input
+            _type="text"
+            name="company"
+            placeholder="company"
+            value=self.state.company
+            required=(Js.Boolean.to_js_boolean(true))
+            /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
+                 but honestly for the complexity of our app, I wouldn't bother  */
+            onChange=(evt => Utilities.valueFromEvent(evt) |> Js.log)
+          />
+          <input
+            _type="text"
             name="position"
             placeholder="position"
             value=self.state.position
             required=(Js.Boolean.to_js_boolean(true))
+            /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
+                 but honestly for the complexity of our app, I wouldn't bother  */
+            onChange=(evt => Utilities.valueFromEvent(evt) |> Js.log)
           />
           <ScrapingInput
             script=ScrapingFunctions.scriptUrl
@@ -256,12 +209,6 @@ let make = (~signOutHandler, ~id, ~jwt, _children) => {
             )
           </select>
           <button className="btn submit-btn"> ("Submit" |> str) </button>
-          <span className="form-vertical-separator">
-            <p className="form-vertical-separator-txt"> ("or" |> str) </p>
-          </span>
-          <button className="btn signout-btn" onClick=signOutHandler>
-            ("Sign Out" |> str)
-          </button>
         </form>
       </div>;
   },
