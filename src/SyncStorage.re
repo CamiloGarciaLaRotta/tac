@@ -38,8 +38,8 @@ let getSavedId = () => {
       let restoredId =
         /** See https://developer.chrome.com/apps/storage#type-StorageArea
          *  We check chrome.runtime.lastError to ensure correctness even when API call fails */
-        Js.Nullable.test(Chrome.Runtime.lastError) ?
-          Js.Dict.get(items, "id") |> unwrapStoreValue : None;
+        Js.Nullable.isNullable(Chrome.Runtime.lastError)
+          ? Js.Dict.get(items, "id") |> unwrapStoreValue : None;
       resolve(. restoredId);
     })
     |> ignore
@@ -60,8 +60,8 @@ let getSavedToken = () => {
       let restoredToken =
         /** See https://developer.chrome.com/apps/storage#type-StorageArea
          *  We check chrome.runtime.lastError to ensure correctness even when API call fails */
-        Js.Nullable.test(Chrome.Runtime.lastError) ?
-          Js.Dict.get(items, "token") |> unwrapStoreValue : None;
+        Js.Nullable.isNullable(Chrome.Runtime.lastError)
+          ? Js.Dict.get(items, "token") |> unwrapStoreValue : None;
       resolve(. restoredToken);
     })
     |> ignore

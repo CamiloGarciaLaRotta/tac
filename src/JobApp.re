@@ -45,7 +45,7 @@ let reducer = (action, state) =>
   | Submit =>
     ReasonReact.UpdateWithSideEffects(
       {...state, loading: true, error: false},
-      (_self => ()),
+      _self => (),
     )
   | SuccesfulSubmit =>
     ReasonReact.Update({
@@ -93,118 +93,119 @@ let make = _children => {
     let changeResumeValue = x => UpdateResumeValue(x) |> self.send;
     let changeStatusValue = x => UpdateStatus(x) |> self.send;
     let errorMessage =
-      self.state.error ?
-        "Failed to add application: " ++ self.state.errorCause : "";
+      self.state.error
+        ? "Failed to add application: " ++ self.state.errorCause : "";
     let successMessage = self.state.success ? "Added application" : "";
-    self.state.loading ?
-      <div className="jobapp-size"> <div className="loader" /> </div> :
-      <div>
-        <form
-          onSubmit=(
-            ev => {
-              ReactEventRe.Form.preventDefault(ev);
+    self.state.loading
+      ? <div className="jobapp-size"> <div className="loader" /> </div>
+      : <div>
+          <form
+            onSubmit={ev => {
+              ev->ReactEvent.Form.preventDefault;
               self.send(Submit);
-            }
-          )>
-          <p className="error-message"> (errorMessage |> str) </p>
-          <p className="success-message"> (successMessage |> str) </p>
-          <input
-            _type="text"
-            name="company"
-            placeholder="company"
-            value=self.state.company
-            required=(Js.Boolean.to_js_boolean(true))
-            /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
-                 but honestly for the complexity of our app, I wouldn't bother  */
-            onChange=(evt => Utilities.valueFromEvent(evt) |> Js.log)
-          />
-          <input
-            _type="text"
-            name="position"
-            placeholder="position"
-            value=self.state.position
-            required=(Js.Boolean.to_js_boolean(true))
-            /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
-                 but honestly for the complexity of our app, I wouldn't bother  */
-            onChange=(evt => Utilities.valueFromEvent(evt) |> Js.log)
-          />
-          <ScrapingInput
-            script=ScrapingFunctions.scriptUrl
-            typeValue="url"
-            validationFn=ScrapingFunctions.validateUrl
-            processFn=ScrapingFunctions.toStringProcess
-            reducerFn=changeUrl
-            name="url"
-            placeholder="url"
-            value=self.state.url
-            required=(Js.Boolean.to_js_boolean(true))
-          />
-          <div className="form-horizontal-separator">
-            <label> ("Date posted" |> str) </label>
-            <ScrapingInput
-              script=ScrapingFunctions.scriptHtmlBody
-              typeValue="date"
-              validationFn=ScrapingFunctions.validateDate
-              processFn=ScrapingFunctions.extractPostedDateProcess
-              reducerFn=changePostedDate
-              name="postedDate"
-              placeholder=""
-              value=self.state.postedDate
-              required=(Js.Boolean.to_js_boolean(true))
-            />
-          </div>
-          <div className="form-horizontal-separator">
-            <label> ("Deadline" |> str) </label>
+            }}>
+            <p className="error-message"> {errorMessage |> str} </p>
+            <p className="success-message"> {successMessage |> str} </p>
             <input
-              _type="date"
-              name="deadline"
-              value=self.state.deadline
-              required=(Js.Boolean.to_js_boolean(true))
-              onChange=(ev => ev |> Utilities.valueFromEvent |> changeDeadline)
+              type_="text"
+              name="company"
+              placeholder="company"
+              value={self.state.company}
+              required=true
+              /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
+                   but honestly for the complexity of our app, I wouldn't bother  */
+              onChange={evt => Utilities.valueFromEvent(evt) |> changeCompany}
             />
-          </div>
-          <div className="form-horizontal-separator">
-            <label>
-              <input
-                _type="radio"
-                name="status"
-                value="Applied"
-                required=(Js.Boolean.to_js_boolean(true))
-                onChange=(ev => valueFromEvent(ev) |> changeStatusValue)
+            <input
+              type_="text"
+              name="position"
+              placeholder="position"
+              value={self.state.position}
+              required=true
+              /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
+                   but honestly for the complexity of our app, I wouldn't bother  */
+              onChange={evt =>
+                Utilities.valueFromEvent(evt) |> changePosition
+              }
+            />
+            <ScrapingInput
+              script=ScrapingFunctions.scriptUrl
+              typeValue="url"
+              validationFn=ScrapingFunctions.validateUrl
+              processFn=ScrapingFunctions.toStringProcess
+              reducerFn=changeUrl
+              name="url"
+              placeholder="url"
+              value={self.state.url}
+              required=true
+            />
+            <div className="form-horizontal-separator">
+              <label> {"Date posted" |> str} </label>
+              <ScrapingInput
+                script=ScrapingFunctions.scriptHtmlBody
+                typeValue="date"
+                validationFn=ScrapingFunctions.validateDate
+                processFn=ScrapingFunctions.extractPostedDateProcess
+                reducerFn=changePostedDate
+                name="postedDate"
+                placeholder=""
+                value={self.state.postedDate}
+                required=true
               />
-              ("Applied" |> str)
-            </label>
-            <label>
+            </div>
+            <div className="form-horizontal-separator">
+              <label> {"Deadline" |> str} </label>
               <input
-                _type="radio"
-                name="status"
-                value="To apply"
-                onChange=(ev => valueFromEvent(ev) |> changeStatusValue)
+                type_="date"
+                name="deadline"
+                value={self.state.deadline}
+                required=true
+                onChange={ev =>
+                  ev |> Utilities.valueFromEvent |> changeDeadline
+                }
               />
-              ("To apply" |> str)
-            </label>
-          </div>
-          <select
-            id="resumes"
-            value=self.state.resumeValue
-            required=(Js.Boolean.to_js_boolean(true))
-            onChange=(
-              evt => Utilities.valueFromEvent(evt) |> changeResumeValue
-            )>
-            <option key="" value=""> ("CV used" |> str) </option>
-            (
-              ReasonReact.arrayToElement(
-                self.state.resumes
-                |> Array.map((el: resume) =>
-                     <option key=el.id value=el.id>
-                       (el.title ++ " " ++ el.revision |> str)
-                     </option>
-                   ),
-              )
-            )
-          </select>
-          <button className="btn submit-btn"> ("Submit" |> str) </button>
-        </form>
-      </div>;
+            </div>
+            <div className="form-horizontal-separator">
+              <label>
+                <input
+                  type_="radio"
+                  name="status"
+                  value="Applied"
+                  required=true
+                  onChange={ev => valueFromEvent(ev) |> changeStatusValue}
+                />
+                {"Applied" |> str}
+              </label>
+              <label>
+                <input
+                  type_="radio"
+                  name="status"
+                  value="To apply"
+                  onChange={ev => valueFromEvent(ev) |> changeStatusValue}
+                />
+                {"To apply" |> str}
+              </label>
+            </div>
+            <select
+              id="resumes"
+              value={self.state.resumeValue}
+              required=true
+              onChange={evt =>
+                Utilities.valueFromEvent(evt) |> changeResumeValue
+              }>
+              <option key="" value=""> {"CV used" |> str} </option>
+              /*{ReasonReact.arrayToElement(*/
+              {ReasonReact.array(
+                 self.state.resumes
+                 |> Array.map((el: resume) =>
+                      <option key={el.id} value={el.id}>
+                        {el.title ++ " " ++ el.revision |> str}
+                      </option>
+                    ),
+               )}
+            </select>
+            <button className="btn submit-btn"> {"Submit" |> str} </button>
+          </form>
+        </div>;
   },
 };

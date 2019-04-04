@@ -15,22 +15,23 @@
     "webpack": "webpack"
   },
   "keywords": [
-    "BuckleScript"
+    "BuckleScript",
+    "Chrome Extension"
   ],
-  "author": "Alexander Bratyshkin & Camilo Garcia La Rotta",
+  "author": "Camilo Garcia La Rotta",
   "license": "GPL-3.0",
   "dependencies": {
-    "@glennsl/bs-json": "^1.0.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "reason-react": "^0.3.4"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reason-react": ">=0.4.0"
   },
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.4.7",
-    "bs-platform": "^2.2.3",
-    "bucklescript-chrome": "git://github.com/jchavarri/bucklescript-chrome.git#start-extensions",
-    "copy-webpack-plugin": "^4.2.1",
-    "coveralls": "^3.0.2",
-    "webpack": "^3.8.1"
+    "@glennsl/bs-jest": "^0.4.8",
+    "bs-platform": "^5.0.0",
+    "bucklescript-chrome": "git://github.com/camilogarcialarotta/bucklescript-chrome.git#start-extensions",
+    "copy-webpack-plugin": "^5.0.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^3.3.0",
+    "coveralls": "^3.0.2"
   }
 }

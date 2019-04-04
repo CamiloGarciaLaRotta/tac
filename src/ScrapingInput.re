@@ -47,19 +47,18 @@ let make =
       _children,
     ) => {
   ...component,
-  didMount: _self =>
-    ReasonReact.SideEffects(
-      _self => scrape(script, validationFn, processFn, reducerFn),
-    ),
+  didMount: _self => {
+    scrape(script, validationFn, processFn, reducerFn);
+  },
   render: _self =>
     <input
-      _type=typeValue
+      type_=typeValue
       name
       placeholder
       value
       /*** Ideally, I would've passed a separate prop such as a "dispatcher" function,
            but honestly for the complexity of our app, I wouldn't bother  */
-      onChange=(evt => Utilities.valueFromEvent(evt) |> reducerFn)
+      onChange={evt => Utilities.valueFromEvent(evt) |> reducerFn}
       required
     />,
 };
