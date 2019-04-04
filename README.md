@@ -16,6 +16,8 @@ The Chrome extension is meant to be an ad-hoc way to track any type of applicati
 This Chrome Extension is the fork of a school project regarding a broader service to track applications.
 The fork intends to remove dependencies on external web APIs, simplyfying the use cases and making the extension self contained.
 
+You can find more information on the use cases this fork attempts to address, as well as insights into the design process in the [Design Thinking Gist](https://gist.github.com/CamiloGarciaLaRotta/d1e1a6d64e413e931233f8accf72057b)
+
 ## Folder Structure
 ```bash
 .
