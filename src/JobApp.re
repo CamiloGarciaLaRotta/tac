@@ -8,7 +8,6 @@ type state = {
   position: string,
   postedDate: string,
   deadline: string,
-  companies: array(string),
   resumes: array(resume),
   resumeValue: string,
   status: string,
@@ -24,7 +23,6 @@ type action =
   | UpdatePosition(string)
   | UpdatePostedDate(string)
   | UpdateDeadline(string)
-  | UpdateCompanyNames(array(string))
   | UpdateResumes(array(resume))
   | UpdateResumeValue(string)
   | UpdateStatus(string)
@@ -40,8 +38,6 @@ let reducer = (action, state) =>
   | UpdatePostedDate(value) =>
     ReasonReact.Update({...state, postedDate: value})
   | UpdateDeadline(value) => ReasonReact.Update({...state, deadline: value})
-  | UpdateCompanyNames(value) =>
-    ReasonReact.Update({...state, companies: value})
   | UpdateResumes(value) => ReasonReact.Update({...state, resumes: value})
   | UpdateResumeValue(value) =>
     ReasonReact.Update({...state, resumeValue: value})
@@ -79,7 +75,6 @@ let make = _children => {
     position: "",
     postedDate: "",
     deadline: "",
-    companies: [||],
     resumes: [||],
     resumeValue: "",
     status: "",

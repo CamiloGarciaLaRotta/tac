@@ -12,8 +12,7 @@ module.exports = {
       { from: "manifest.json" },
       { from: "icon.png" },
       { from: "popup.html" },
-      { from: "./src/App.css" },
-      { from: "data/business-names.json" }
+      { from: "./src/App.css" }
     ])
   ]
 };

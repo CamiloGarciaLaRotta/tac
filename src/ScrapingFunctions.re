@@ -52,53 +52,6 @@ let extractPostedDateProcess = x : string => {
   };
 };
 
-/**
-Heuristic: check how many times the name of a company appears.
-The company name with highest frequency is the company we're looking for.
-
-- Potential improvements: cache the company name given the URL
-- Make a legit getSubstringOccurences method
-- Checker --> if I'm on linkedin, don't use me as #1 result
- */
-let extractCompaniesProcess = (companies: array(string), body) => {
-  let stringBody = body |> Js.String.toLowerCase;
-  /** Particular check for Linkedin (could've converted into its own type) */
-  let linkedinCheck =
-    Js.String.match(Js.Re.fromString(Constants.linkedinCDNURL), stringBody)
-    != None;
-  /**Skip this company if the custom check for the company doesn't pass */
-  let companyCheckers = company =>
-    switch (company |> Js.String.toLocaleLowerCase) {
-    | x when x == Constants.linkedinCompanyNameLowerCase && linkedinCheck =>
-      false
-    | _ => true
-    };
-  /**
-   Brute force method: check how many times a company name appears in a string
-   */
-  let reducer = (acc, x) => {
-    let result =
-      /** A bit sketch that it's done this way, but I'm not going to write a functional method to get substring occurences and I can't
-    find a built-in one; this works just as well nonetheless*/
-      Js.String.splitByRe(
-        Js.Re.fromString(String.lowercase(x)),
-        stringBody,
-      );
-    switch (result) {
-    | value when Array.length(value) != 1 && companyCheckers(x) => [
-        (x, Array.length(value)),
-        ...acc,
-      ]
-    | _ => acc
-    };
-  };
-  companies
-  |> Array.fold_left(reducer, [])
-  |> List.sort(((_, a), (_, b)) => b - a)
-  |> List.hd
-  |> (((a, _)) => a);
-};
-
 let checkValidUrl = x => {
   let stringUrl = x |> Js.String.make;
   Js.Re.test(stringUrl, Constants.urlRegex) ? x : failwith("Invalid URL");
