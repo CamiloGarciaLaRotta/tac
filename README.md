@@ -1,7 +1,22 @@
 # Tack Google Chrome Extension
 :pushpin: Keep track of job applications ad-hoc 
-<a href="https://travis-ci.org/CamiloGarciaLaRotta/tack"><img align="right" src="https://travis-ci.org/CamiloGarciaLaRotta/tack.svg?branch=master"></a>
-<a href="https://coveralls.io/github/camilogarcialarotta/tack"><img align="right" src="https://coveralls.io/repos/github/camilogarcialarotta/tack/badge.svg"></a>
+<a href="https://travis-ci.org/CamiloGarciaLaRotta/tack">
+  <img
+    src="https://travis-ci.org/CamiloGarciaLaRotta/tack.svg?branch=master"
+    alt='Build Status'
+    align="right"
+  />
+</a>
+<a href='https://coveralls.io/github/CamiloGarciaLaRotta/tack?branch=master'>
+  <img
+    src='https://coveralls.io/repos/github/CamiloGarciaLaRotta/tack/badge.svg?branch=master'
+    alt='Coverage Status'
+    align="right"
+  />
+</a>
+
+
+
 
 <p align="center">
 <img src="https://i.imgur.com/rQyb5oD.png" width="300">
