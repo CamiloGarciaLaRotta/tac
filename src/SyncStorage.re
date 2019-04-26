@@ -27,12 +27,12 @@ let refreshToken = maybeToken =>
 /** return a promise to retrieve the saved token */
 let getSavedId = () => {
   /** only unwrap a single string attribute */
-  let unwrapStoreValue = maybeValue =>
-    switch (maybeValue) {
+  let unwrapStoreValue =
+    fun
     | Some(Js.Json.JSONString(v)) => Some(v)
     | None => None
-    | _ => failwith("Expected id to be a string")
-    };
+    | _ => failwith("Expected id to be a string");
+
   Js.Promise.make((~resolve, ~reject as _) =>
     Sync.get("id", items => {
       let restoredId =
@@ -49,12 +49,12 @@ let getSavedId = () => {
 /** return a promise to retrieve the saved token */
 let getSavedToken = () => {
   /** only unwrap a single string attribute */
-  let unwrapStoreValue = maybeValue =>
-    switch (maybeValue) {
+  let unwrapStoreValue =
+    fun
     | Some(Js.Json.JSONString(v)) => Some(v)
     | None => None
-    | _ => failwith("Expected token to be a string")
-    };
+    | _ => failwith("Expected token to be a string");
+
   Js.Promise.make((~resolve, ~reject as _) =>
     Sync.get("token", items => {
       let restoredToken =

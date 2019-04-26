@@ -16,13 +16,11 @@ let scriptPosition = "  var getAreaAndText = el => ({ fontSize: parseFloat(windo
                         .sort((a, b) => b.fontSize - a.fontSize)[0].text";
 
 /** Error checking with comfy optional types */
-let validateNonNull = x =>
-  switch (x) {
+let validateNonNull =
+  fun
   | None => failwith("Value is null")
-  | Some(x) => x
-  };
+  | Some(x) => x;
 
-/** Note: toStringProcess(None) => "0" */
 let toStringProcess = x => Js.String.make(x);
 
 /** formats a float date to a yyyy-MM-dd string */

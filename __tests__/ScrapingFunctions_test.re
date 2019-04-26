@@ -53,7 +53,7 @@ describe("Process Functions", () =>
       toStringProcess([|1, 2, 3|]) |> expect |> toBe("1,2,3")
     );
     test("none", () =>
-      toStringProcess(None) |> expect |> toBe("0")
+      toStringProcess(None) |> expect |> toBe("undefined")
     );
   })
 );
