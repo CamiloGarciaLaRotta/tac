@@ -37,7 +37,7 @@ The basic things every PR must have are the following:
 
 3. Start the Webpack watcher to bundle `./lib/js/*.js` into `./build/index.js`
     ```bash
-    npm run webpack-dev
+    npm run webpack
     ```
 
 4. Start the Jest watcher to continously test your changes

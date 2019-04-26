@@ -11,8 +11,8 @@
     "clean": "bsb -clean-world",
     "test": "jest --coverage --collectCoverageFrom=lib/js/src/*.js --watchAll",
     "coveralls": "jest --coverage --collectCoverageFrom=lib/js/src/*.js && cat ./coverage/lcov.info | coveralls",
-    "webpack-dev": "webpack -w",
-    "webpack": "webpack"
+    "webpack": "webpack -w",
+    "webpack-ci": "webpack"
   },
   "keywords": [
     "BuckleScript",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.8",
     "bs-platform": "^5.0.0",
-    "bucklescript-chrome": "git://github.com/camilogarcialarotta/bucklescript-chrome.git#start-extensions",
+    "bucklescript-chrome": "git://github.com/jchavarri/bucklescript-chrome.git#start-extensions",
     "copy-webpack-plugin": "^5.0.2",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.3.0",
